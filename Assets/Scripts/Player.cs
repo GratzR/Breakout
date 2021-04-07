@@ -12,12 +12,12 @@ public class Player : MonoBehaviour
     [SerializeField] 
     private GameObject _ballPrefab;
 
-    [SerializeField] 
-    private SpawnManager _spawnManager;
+    //[SerializeField] 
+    //private SpawnManager _spawnManager;
     //private GameObject _spawnManager;
     
     [SerializeField]
-    private int _lives = 3;
+    private int _numBalls = 3;
     
     // Start is called before the first frame update
     void Start()
@@ -30,21 +30,22 @@ public class Player : MonoBehaviour
     {
         PlayerMovement();
 
-        Vaccinate();
+        ShootBall();
 
     }
 
-    public void Damage()
+    public void LoseBall()
     {
-        _lives -= 1;
+        _numBalls -= 1;
 
     }
-    void Vaccinate()
+    void ShootBall()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && _numBalls>0)
         {
             //Debug.Log(message:"space bar pressed");
             Instantiate(_ballPrefab, transform.position + new Vector3(0,0.7f,0), Quaternion.identity);
+            LoseBall();
         }
     }
 
@@ -58,10 +59,13 @@ public class Player : MonoBehaviour
         if (transform.position.x > 10f)
         {
             transform.position = new Vector3(10f, -4f, 0f);
+            //transform.position = transform.position;
+            _movSpeed = 0;
         }
         else if (transform.position.x < -10f)
         {
             transform.position = new Vector3(-10f, -4, 0f);
+            _movSpeed = 0;
         }
     }
     

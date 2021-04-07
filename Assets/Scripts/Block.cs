@@ -22,13 +22,13 @@ public class Block : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         //Debug.Log(other.name);
-        if (other.CompareTag("Player"))
+        /*if (other.CompareTag("Player"))
         {
             //not relevant
             other.GetComponent<Player>().Damage();
             Destroy(this.gameObject);
-        }
-        else if (other.CompareTag("Ball"))
+        } else */
+        if (other.CompareTag("Ball"))
         {
             Destroy(this.gameObject);
         }
