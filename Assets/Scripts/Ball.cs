@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Ball : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class Ball : MonoBehaviour
     
     private bool _faceUp = true;
 
+    void Start()
+    {
+        _hSpeed = Random.Range(-2f, 2f);
+    } 
     //[SerializeField] 
     //private UIManager _uiManager;
     // Update is called once per frame
