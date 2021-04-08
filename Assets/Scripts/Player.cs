@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && _numBalls>0 && !_activeBall)
         {
             //Debug.Log(message:"space bar pressed");
-            Instantiate(_ballPrefab, transform.position + new Vector3(0,0.7f,0), Quaternion.identity);
+            Instantiate(_ballPrefab, transform.position + new Vector3(0f,0.7f,0f), Quaternion.identity);
             //LoseBall();
             _activeBall = true;
         }
@@ -69,16 +69,16 @@ public class Player : MonoBehaviour
         transform.Translate(Vector3.right*_movSpeed);
         
         // Boundries
-        if (transform.position.x > 10f)
+        if (transform.position.x > 8f)
         {
-            transform.position = new Vector3(10f, -4f, 0f);
+            transform.position = new Vector3(8f, -4f, 0f);
             //transform.position = transform.position;
-            _movSpeed = 0;
+            _movSpeed = 0f;
         }
-        else if (transform.position.x < -10f)
+        else if (transform.position.x < -8f)
         {
-            transform.position = new Vector3(-10f, -4, 0f);
-            _movSpeed = 0;
+            transform.position = new Vector3(-8f, -4, 0f);
+            _movSpeed = 0f;
         }
     }
     

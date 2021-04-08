@@ -21,19 +21,19 @@ public class Ball : MonoBehaviour
         if (_faceUp)
         {
             transform.Translate(Vector3.up * Time.deltaTime * _vSpeed 
-                                + Vector3.right * Time.deltaTime * (_hSpeed*3));
+                                + Vector3.right * Time.deltaTime * (_hSpeed*6));
         }
         else
         {
             transform.Translate(Vector3.down* Time.deltaTime * _vSpeed 
-                                + Vector3.right * Time.deltaTime * (_hSpeed*3));
+                                + Vector3.right * Time.deltaTime * (_hSpeed*6));
         }
 
-        if (transform.position.y > 5.5f)
+        if (transform.position.y > 4.8f)
         {
             _faceUp = false;
         }
-        else if (transform.position.y < -5.5f)
+        else if (transform.position.y < -5.2f)
         {
             Destroy(this.gameObject);
             GameObject.FindWithTag("Player").GetComponent<Player>().LoseBall();
@@ -51,6 +51,10 @@ public class Ball : MonoBehaviour
             //hit at the side
             _faceUp = true;
             _hSpeed += other.GetComponent<Player>()._movSpeed;
+            if (_hSpeed > 8f)
+            {
+                _hSpeed = 8f;
+            }
         }
         else if (other.CompareTag("Block"))
         {
@@ -60,7 +64,7 @@ public class Ball : MonoBehaviour
 
     void Wall()
     {
-        if (transform.position.x > 10 || transform.position.x < -10)
+        if (transform.position.x > 8.72f || transform.position.x < -8.77f)
         {
             _hSpeed = -_hSpeed;
         }
