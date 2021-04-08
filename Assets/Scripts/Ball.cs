@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,9 @@ public class Ball : MonoBehaviour
     private float _hSpeed = 0f;
     
     private bool _faceUp = true;
+
+    //[SerializeField] 
+    //private UIManager _uiManager;
     // Update is called once per frame
     void Update()
     {
@@ -32,6 +36,9 @@ public class Ball : MonoBehaviour
         else if (transform.position.y < -5.5f)
         {
             Destroy(this.gameObject);
+            GameObject.FindWithTag("Player").GetComponent<Player>().LoseBall();
+            //FindObjectOfType<Player>().LoseBall();
+            //_uiManager.SubBall();
         }
         
     }

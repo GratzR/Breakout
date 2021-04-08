@@ -6,7 +6,6 @@ using Random = UnityEngine.Random;
 
 public class Block : MonoBehaviour
 {
-    
     // Update is called once per frame
     void Update()
     {
@@ -30,6 +29,7 @@ public class Block : MonoBehaviour
         } else */
         if (other.CompareTag("Ball"))
         {
+            GameObject.FindWithTag("UIManager").GetComponent<UIManager>().AddScore(1);
             Destroy(this.gameObject);
         }
     }

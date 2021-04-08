@@ -9,15 +9,21 @@ public class Player : MonoBehaviour
 
     public float _movSpeed = 0f;
 
+    
     [SerializeField] 
     private GameObject _ballPrefab;
+    
+    [SerializeField]
+    private int _numBalls = 3;
+
+    private bool _activeBall = false;
+
+    [SerializeField] 
+    private UIManager _uiManager;
 
     //[SerializeField] 
     //private SpawnManager _spawnManager;
     //private GameObject _spawnManager;
-    
-    [SerializeField]
-    private int _numBalls = 3;
     
     // Start is called before the first frame update
     void Start()
@@ -37,15 +43,22 @@ public class Player : MonoBehaviour
     public void LoseBall()
     {
         _numBalls -= 1;
+        _activeBall = false;
+        _uiManager.BallCount(-1); //alternativ _numBalls geben
+        if (_numBalls == 0)
+        {
+            Destroy(this.gameObject);
+        }
 
     }
     void ShootBall()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && _numBalls>0)
+        if (Input.GetKeyDown(KeyCode.Space) && _numBalls>0 && !_activeBall)
         {
             //Debug.Log(message:"space bar pressed");
             Instantiate(_ballPrefab, transform.position + new Vector3(0,0.7f,0), Quaternion.identity);
-            LoseBall();
+            //LoseBall();
+            _activeBall = true;
         }
     }
 
