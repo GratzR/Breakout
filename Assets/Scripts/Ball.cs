@@ -6,32 +6,31 @@ using Random = UnityEngine.Random;
 
 public class Ball : MonoBehaviour
 {
-    [SerializeField]
-    private float _vSpeed = 8f;
-    [SerializeField] 
-    private float _hSpeed = 0f;
-    
+    [SerializeField] private float _vSpeed = 8f;
+    [SerializeField] private float _hSpeed = 0f;
+
     private bool _faceUp = true;
 
     void Start()
     {
-        _hSpeed = Random.Range(-2f, 2f);
-    } 
+        _hSpeed = Random.Range(-1f, 1f);
+    }
     //[SerializeField] 
     //private UIManager _uiManager;
     // Update is called once per frame
+
     void Update()
     {
         Wall();
         if (_faceUp)
         {
-            transform.Translate(Vector3.up * Time.deltaTime * _vSpeed 
-                                + Vector3.right * Time.deltaTime * (_hSpeed*6));
+            transform.Translate(Vector3.up * Time.deltaTime * _vSpeed
+                                + Vector3.right * Time.deltaTime * (_hSpeed * 6));
         }
         else
         {
-            transform.Translate(Vector3.down* Time.deltaTime * _vSpeed 
-                                + Vector3.right * Time.deltaTime * (_hSpeed*6));
+            transform.Translate(Vector3.down * Time.deltaTime * _vSpeed
+                                + Vector3.right * Time.deltaTime * (_hSpeed * 6));
         }
 
         if (transform.position.y > 4.8f)
@@ -45,9 +44,9 @@ public class Ball : MonoBehaviour
             //FindObjectOfType<Player>().LoseBall();
             //_uiManager.SubBall();
         }
-        
     }
-    
+
+
     void OnTriggerEnter(Collider other)
     {
         //Debug.Log(other.name);
@@ -56,9 +55,13 @@ public class Ball : MonoBehaviour
             //hit at the side
             _faceUp = true;
             _hSpeed += other.GetComponent<Player>()._movSpeed;
-            if (_hSpeed > 8f)
+            if (_hSpeed > 6f)
             {
-                _hSpeed = 8f;
+                _hSpeed = 6f;
+            }
+            else if (_hSpeed < -6f)
+            {
+                _hSpeed = -6f;
             }
         }
         else if (other.CompareTag("Block"))
@@ -69,7 +72,7 @@ public class Ball : MonoBehaviour
 
     void Wall()
     {
-        if (transform.position.x > 8.72f || transform.position.x < -8.77f)
+        if (transform.position.x > 8.7f || transform.position.x < -8.7f)
         {
             _hSpeed = -_hSpeed;
         }

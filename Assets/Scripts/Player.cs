@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private float _speed = 8f;
+    private float _speed = 10f;
 
     public float _movSpeed = 0f;
 
@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(0f, -4f, 0f);
+        transform.position = new Vector3(0f, -4.5f, 0f);
     }
 
     // Update is called once per frame
@@ -69,15 +69,15 @@ public class Player : MonoBehaviour
         transform.Translate(Vector3.right*_movSpeed);
         
         // Boundries
-        if (transform.position.x > 8f)
+        if (transform.position.x > 7.34f)
         {
-            transform.position = new Vector3(8f, -4f, 0f);
+            transform.position = new Vector3(7.34f, -4f, 0f);
             //transform.position = transform.position;
             _movSpeed = 0f;
         }
-        else if (transform.position.x < -8f)
+        else if (transform.position.x < -7.34f)
         {
-            transform.position = new Vector3(-8f, -4, 0f);
+            transform.position = new Vector3(-7.34f, -4, 0f);
             _movSpeed = 0f;
         }
     }
