@@ -72,9 +72,13 @@ public class Ball : MonoBehaviour
 
     void Wall()
     {
-        if (transform.position.x > 8.7f || transform.position.x < -8.7f)
+        if (transform.position.x > 8.7f)
         {
-            _hSpeed = -_hSpeed;
+            _hSpeed = Math.Abs(_hSpeed) * -1;
+        }
+        else if(transform.position.x < -8.7f)
+        {
+            _hSpeed = Math.Abs(_hSpeed);
         }
     }
 }

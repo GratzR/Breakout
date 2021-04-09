@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BlockRow : MonoBehaviour
 {
@@ -13,24 +14,27 @@ public class BlockRow : MonoBehaviour
 
     private int _tier = 1;
     
-    public int initBlockRow(int tier)
+    public int initBlockRow(int tier, bool spawnPowerup)
     {
         _tier = tier;
+
+        int powerupBlock = spawnPowerup ? Random.Range(0, _numBlocks) : -1;
         
         int rowPoints = 0;
         for (int i = 0; i < _numBlocks; i++)
         {
-            rowPoints += SpawnBlock(i);
+            bool spawnPowerupInBlock = powerupBlock == i ? true : false;
+            rowPoints += SpawnBlock(i, spawnPowerupInBlock);
         }
 
         return rowPoints;
     }
 
-    private int SpawnBlock(int numBlock)
+    private int SpawnBlock(int numBlock, bool spawnPowerupInBlock)
     {
         GameObject newObject = Instantiate(_blockPrefab, new Vector3(-7.7f + numBlock*1.7f, this.transform.position.y, 0), Quaternion.identity, this.transform);
         Block block = newObject.GetComponent<Block>();
-        int blockPoints = block.setupBlock(_tier);
+        int blockPoints = block.setupBlock(_tier, spawnPowerupInBlock);
 
         return blockPoints;
     }

@@ -4,16 +4,10 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        transform.position = new Vector3(0f, 4f, 0f);
-    }
-
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.left * Time.deltaTime*2);
+        transform.Translate(Vector3.left * Time.deltaTime*5);
         Passed();
     }
 
@@ -33,9 +27,5 @@ public class PowerUp : MonoBehaviour
             Destroy(this.gameObject);
 
         }
-        // else if (other.CompareTag("Ball"))
-        // {
-        //     negateVerticalDirection();
-        // }
     }
 }

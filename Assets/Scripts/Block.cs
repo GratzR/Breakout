@@ -9,15 +9,22 @@ public class Block : MonoBehaviour
     private int _tier = 1;
     private int _currentLives = 1;
     private int _numberPoints = 1;
+    private bool _isPowerUp;
 
     [SerializeField]
-    public Material _tier1_mat;
+    private Material _tier1_mat;
     [SerializeField]
-    public Material _tier2_mat;
+    private Material _tier2_mat;
     [SerializeField]
-    public Material _tier3_mat;
+    private Material _tier3_mat;
     [SerializeField]
-    public Material _tier4_mat;
+    private Material _tier4_mat;
+    
+    [SerializeField]
+    private Texture _albedo_powerup;
+
+    [SerializeField] 
+    private PowerUp _powerUp;
     
     private List<List<int>> _tierData = new List<List<int>>
     {
@@ -27,13 +34,14 @@ public class Block : MonoBehaviour
         new List<int>{4,10}
     };
 
-    public int setupBlock(int tier)
+    public int setupBlock(int tier, bool spawnPowerupInBlock)
     {
         List<int> currentTier = _tierData[tier - 1];
 
         _tier = tier;
         _currentLives = currentTier[0];
         _numberPoints = currentTier[1];
+        _isPowerUp = spawnPowerupInBlock;
         
         setColorToRemainingLives(_currentLives);
 
@@ -50,6 +58,11 @@ public class Block : MonoBehaviour
 
             if (_currentLives <= 0)
             {
+                if (_isPowerUp)
+                {
+                    Instantiate(_powerUp, this.transform.position, Quaternion.Euler(0,0,90), this.transform.parent.gameObject.transform);
+                }
+                
                 GameObject.FindWithTag("UIManager").GetComponent<UIManager>().AddScore(_numberPoints);
                 Destroy(this.gameObject);
             }
@@ -72,6 +85,11 @@ public class Block : MonoBehaviour
             case 4:
                 GetComponent<Renderer>().material = _tier4_mat;
                 break;
+        }
+
+        if (_isPowerUp)
+        {
+            GetComponent<Renderer>().material.mainTexture = _albedo_powerup;
         }
     }
 }
