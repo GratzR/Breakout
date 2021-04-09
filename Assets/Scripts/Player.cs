@@ -21,6 +21,9 @@ public class Player : MonoBehaviour
     [SerializeField] 
     private UIManager _uiManager;
 
+    [SerializeField] 
+    private SpawnManager _spawnManager;
+
     //[SerializeField] 
     //private SpawnManager _spawnManager;
     //private GameObject _spawnManager;
@@ -47,7 +50,10 @@ public class Player : MonoBehaviour
         _uiManager.BallCount(-1); //alternativ _numBalls geben
         if (_numBalls == 0)
         {
-            Destroy(this.gameObject);
+            DestroyImmediate(_ballPrefab.gameObject, true);
+            DestroyImmediate(_uiManager.gameObject, true);
+            DestroyImmediate(_spawnManager.gameObject, true);
+            DestroyImmediate(this.gameObject, true);
         }
 
     }
@@ -71,13 +77,12 @@ public class Player : MonoBehaviour
         // Boundries
         if (transform.position.x > 7.34f)
         {
-            transform.position = new Vector3(7.34f, -4f, 0f);
-            //transform.position = transform.position;
+            transform.position = new Vector3(7.34f, this.transform.position.y, 0f);
             _movSpeed = 0f;
         }
         else if (transform.position.x < -7.34f)
         {
-            transform.position = new Vector3(-7.34f, -4, 0f);
+            transform.position = new Vector3(-7.34f, this.transform.position.y, 0f);
             _movSpeed = 0f;
         }
     }

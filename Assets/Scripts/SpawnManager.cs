@@ -5,29 +5,42 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private GameObject _virusPrefab;
-    [SerializeField] private float _delay = 2f;
+    [SerializeField] 
+    private GameObject _blockRowPrefab;
+    
+    [SerializeField] 
+    private int _numBlockRows = 6;
+    // [SerializeField] private float _delay = 2f;
 
-    private bool _spawningOn = true;
+    // private bool _spawningOn = true;
     void Start()
     {
-        StartCoroutine(SpawnSystem());
-    }
-
-    public void OnPlayerDeath()
-    {
-        _spawningOn = false;
-    }
-
-
-    IEnumerator SpawnSystem()
-    {
-        while (_spawningOn)
+        for (int i = 0; i < _numBlockRows; i++)
         {
-            Instantiate(_virusPrefab, new Vector3(Random.Range(-10f, 10f), 7f, 0f), Quaternion.identity, this.transform);
-            yield return new WaitForSeconds(_delay);
+            SpawnBlockRow(i);
         }
-        Destroy(this.gameObject);
-        
+        // StartCoroutine(SpawnSystem());
     }
+
+    // public void OnPlayerDeath()
+    // {
+    //     _spawningOn = false;
+    // }
+
+    private void SpawnBlockRow(int numBlockRows)
+    {
+        Instantiate(_blockRowPrefab, new Vector3(0f, 3.75f - numBlockRows*0.4f, 0), Quaternion.identity, this.transform);
+    }
+
+
+    // IEnumerator SpawnSystem()
+    // {
+    //     while (_spawningOn)
+    //     {
+    //         Instantiate(_virusPrefab, new Vector3(Random.Range(-10f, 10f), 7f, 0f), Quaternion.identity, this.transform);
+    //         yield return new WaitForSeconds(_delay);
+    //     }
+    //     Destroy(this.gameObject);
+    //     
+    // }
 }
