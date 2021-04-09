@@ -15,9 +15,10 @@ public class SpawnManager : MonoBehaviour
     // private bool _spawningOn = true;
     void Start()
     {
+        var tiers = new List<int> {4,3,2,2,1,1};
         for (int i = 0; i < _numBlockRows; i++)
         {
-            SpawnBlockRow(i);
+            SpawnBlockRow(i, tiers[i]);
         }
         // StartCoroutine(SpawnSystem());
     }
@@ -27,9 +28,12 @@ public class SpawnManager : MonoBehaviour
     //     _spawningOn = false;
     // }
 
-    private void SpawnBlockRow(int numBlockRows)
+    private void SpawnBlockRow(int numBlockRows, int tier)
     {
-        Instantiate(_blockRowPrefab, new Vector3(0f, 3.75f - numBlockRows*0.4f, 0), Quaternion.identity, this.transform);
+        GameObject newObject = Instantiate(_blockRowPrefab, new Vector3(0f, 3.75f - numBlockRows*0.4f, 0), Quaternion.identity, this.transform);
+        BlockRow blockRow = newObject.GetComponent<BlockRow>();
+        blockRow.setTier(tier);
+        
     }
 
 

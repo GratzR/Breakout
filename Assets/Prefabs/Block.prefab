@@ -123,3 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c92a1fc7bb1cd54ebf5004e02112958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tier1_mat: {fileID: 2100000, guid: 136eb3eabceeca64181321ae61ed1848, type: 2}
+  _tier2_mat: {fileID: 2100000, guid: 002d4b0a0867945d2b846aff7b6d1e0b, type: 2}
+  _tier3_mat: {fileID: 2100000, guid: ba6e81ce6e4604252943f97bbdaf1c23, type: 2}
+  _tier4_mat: {fileID: 2100000, guid: 12d1c6e1a313543f69686c55f344fa43, type: 2}
