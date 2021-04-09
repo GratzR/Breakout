@@ -8,7 +8,9 @@ public class Ball : MonoBehaviour
 {
     [SerializeField] private float _vSpeed = 8f;
     [SerializeField] private float _hSpeed = 0f;
-    
+
+    private bool _faceUp = true;
+
     void Start()
     {
         _hSpeed = Random.Range(-1f, 1f);
@@ -20,13 +22,20 @@ public class Ball : MonoBehaviour
     void Update()
     {
         Wall();
-        
-        transform.Translate(Vector3.up * Time.deltaTime * _vSpeed
+        if (_faceUp)
+        {
+            transform.Translate(Vector3.up * Time.deltaTime * _vSpeed
                                 + Vector3.right * Time.deltaTime * (_hSpeed * 6));
+        }
+        else
+        {
+            transform.Translate(Vector3.down * Time.deltaTime * _vSpeed
+                                + Vector3.right * Time.deltaTime * (_hSpeed * 6));
+        }
 
         if (transform.position.y > 4.8f)
         {
-            negateVerticalDirection();
+            _faceUp = false;
         }
         else if (transform.position.y < -5.2f)
         {
@@ -40,10 +49,11 @@ public class Ball : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        //Debug.Log(other.name);
         if (other.CompareTag("Player"))
         {
             //hit at the side
-            negateVerticalDirection();
+            _faceUp = true;
             _hSpeed += other.GetComponent<Player>()._movSpeed;
             if (_hSpeed > 6f)
             {
@@ -56,7 +66,7 @@ public class Ball : MonoBehaviour
         }
         else if (other.CompareTag("Block"))
         {
-            negateVerticalDirection();
+            _faceUp = !_faceUp;
         }
     }
 
@@ -64,17 +74,7 @@ public class Ball : MonoBehaviour
     {
         if (transform.position.x > 8.7f || transform.position.x < -8.7f)
         {
-            negatehorizontalDirection();
+            _hSpeed = -_hSpeed;
         }
-    }
-
-    void negateVerticalDirection()
-    {
-        _vSpeed *= -1f;
-    }
-    
-    void negatehorizontalDirection()
-    {
-        _hSpeed *= -1f;
     }
 }

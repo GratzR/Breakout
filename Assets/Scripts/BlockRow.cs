@@ -13,24 +13,25 @@ public class BlockRow : MonoBehaviour
 
     private int _tier = 1;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        for (int i = 0; i < _numBlocks; i++)
-        {
-            SpawnBlock(i);
-        }
-    }
-
-    public void setTier(int tier)
+    public int initBlockRow(int tier)
     {
         _tier = tier;
+        
+        int rowPoints = 0;
+        for (int i = 0; i < _numBlocks; i++)
+        {
+            rowPoints += SpawnBlock(i);
+        }
+
+        return rowPoints;
     }
 
-    private void SpawnBlock(int numBlock)
+    private int SpawnBlock(int numBlock)
     {
         GameObject newObject = Instantiate(_blockPrefab, new Vector3(-7.7f + numBlock*1.7f, this.transform.position.y, 0), Quaternion.identity, this.transform);
         Block block = newObject.GetComponent<Block>();
-        block.setupBlock(_tier);
+        int blockPoints = block.setupBlock(_tier);
+
+        return blockPoints;
     }
 }

@@ -10,41 +10,29 @@ public class SpawnManager : MonoBehaviour
     
     [SerializeField] 
     private int _numBlockRows = 6;
-    // [SerializeField] private float _delay = 2f;
 
-    // private bool _spawningOn = true;
+    [SerializeField] 
+    private Player _player;
+
     void Start()
     {
         var tiers = new List<int> {4,3,2,2,1,1};
+
+        int maxPoints = 0;
         for (int i = 0; i < _numBlockRows; i++)
         {
-            SpawnBlockRow(i, tiers[i]);
+            maxPoints += SpawnBlockRow(i, tiers[i]);
         }
-        // StartCoroutine(SpawnSystem());
+        
+        _player.setMaxPoints(maxPoints);
     }
 
-    // public void OnPlayerDeath()
-    // {
-    //     _spawningOn = false;
-    // }
-
-    private void SpawnBlockRow(int numBlockRows, int tier)
+    private int SpawnBlockRow(int numBlockRows, int tier)
     {
         GameObject newObject = Instantiate(_blockRowPrefab, new Vector3(0f, 3.75f - numBlockRows*0.4f, 0), Quaternion.identity, this.transform);
         BlockRow blockRow = newObject.GetComponent<BlockRow>();
-        blockRow.setTier(tier);
-        
+        int rowPoints = blockRow.initBlockRow(tier);
+
+        return rowPoints;
     }
-
-
-    // IEnumerator SpawnSystem()
-    // {
-    //     while (_spawningOn)
-    //     {
-    //         Instantiate(_virusPrefab, new Vector3(Random.Range(-10f, 10f), 7f, 0f), Quaternion.identity, this.transform);
-    //         yield return new WaitForSeconds(_delay);
-    //     }
-    //     Destroy(this.gameObject);
-    //     
-    // }
 }

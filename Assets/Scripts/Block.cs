@@ -27,7 +27,7 @@ public class Block : MonoBehaviour
         new List<int>{4,10}
     };
 
-    public void setupBlock(int tier)
+    public int setupBlock(int tier)
     {
         List<int> currentTier = _tierData[tier - 1];
 
@@ -36,6 +36,8 @@ public class Block : MonoBehaviour
         _numberPoints = currentTier[1];
         
         setColorToRemainingLives(_currentLives);
+
+        return _numberPoints;
     }
 
     void OnTriggerEnter(Collider other)

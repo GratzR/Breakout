@@ -14,6 +14,9 @@ public class UIManager : MonoBehaviour
     
     [SerializeField]
     private Text _scoreText;
+
+    [SerializeField] 
+    private Text _endGameText;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,5 +36,10 @@ public class UIManager : MonoBehaviour
         _scoreText.text = "Score: " + _score;
     }
 
-   
+    public void showEndGame(int maxScore)
+    {
+        Destroy(_ballText);
+        Destroy(_scoreText);
+        _endGameText.text = "Game over! \n You reached " + _score + " / " + maxScore + " points";
+    }
 }

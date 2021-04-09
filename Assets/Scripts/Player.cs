@@ -24,10 +24,7 @@ public class Player : MonoBehaviour
     [SerializeField] 
     private SpawnManager _spawnManager;
 
-    //[SerializeField] 
-    //private SpawnManager _spawnManager;
-    //private GameObject _spawnManager;
-    
+    private int _maxPoints;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,8 +47,9 @@ public class Player : MonoBehaviour
         _uiManager.BallCount(-1); //alternativ _numBalls geben
         if (_numBalls == 0)
         {
+            _uiManager.showEndGame(_maxPoints);
+            
             DestroyImmediate(_ballPrefab.gameObject, true);
-            DestroyImmediate(_uiManager.gameObject, true);
             DestroyImmediate(_spawnManager.gameObject, true);
             DestroyImmediate(this.gameObject, true);
         }
@@ -87,6 +85,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void setMaxPoints(int maxPoints)
+    {
+        _maxPoints = maxPoints;
+    }
+
     public void EnlargePlayer()
     {
         this.transform.localScale += new Vector3(2,0,0);
@@ -98,5 +101,4 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(4);
         this.transform.localScale -= new Vector3(2, 0, 0);
     }
-    
 }
