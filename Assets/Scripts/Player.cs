@@ -86,5 +86,17 @@ public class Player : MonoBehaviour
             _movSpeed = 0f;
         }
     }
+
+    public void EnlargePlayer()
+    {
+        this.transform.localScale += new Vector3(2,0,0);
+        StartCoroutine(ReverseEnlarge());
+    }
+
+    IEnumerator ReverseEnlarge()
+    {
+        yield return new WaitForSeconds(4);
+        this.transform.localScale -= new Vector3(2, 0, 0);
+    }
     
 }
