@@ -16,10 +16,12 @@ public class PowerUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //because the object is rotated Vector3.left makes the object move downwards
         transform.Translate(Vector3.left * Time.deltaTime*5);
         Passed();
     }
 
+    //destroys the object after it passed by the player
     void Passed()
     {
         if (transform.position.y < -5.2f)
@@ -28,6 +30,7 @@ public class PowerUp : MonoBehaviour
         }
     }
     
+    //activates the right effect when the Power-up is collected
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -51,6 +54,7 @@ public class PowerUp : MonoBehaviour
         }
     }
 
+    //receives the information about the type of Power-up that is generated
     public void setPowerUpType(int type)
     {
         _type = type;

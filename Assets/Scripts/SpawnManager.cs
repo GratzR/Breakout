@@ -16,8 +16,10 @@ public class SpawnManager : MonoBehaviour
 
     void Start()
     {
+        //the list of which row has which tier (left to right is top to bottom)
         var tiers = new List<int> {4,3,2,2,1,1};
         
+        //collects the maximum reachable amount of points
         int maxPoints = 0;
         for (int i = 0; i < _numBlockRows; i++)
         {
@@ -27,6 +29,7 @@ public class SpawnManager : MonoBehaviour
         _player.setMaxPoints(maxPoints);
     }
 
+    //handles the generating of each row
     private int SpawnBlockRow(int numBlockRows, int tier)
     {
         GameObject newObject = Instantiate(_blockRowPrefab, new Vector3(0f, 3.75f - numBlockRows*0.4f, 0), Quaternion.identity, this.transform);
