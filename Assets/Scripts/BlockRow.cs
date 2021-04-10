@@ -14,11 +14,12 @@ public class BlockRow : MonoBehaviour
 
     private int _tier = 1;
     
-    public int initBlockRow(int tier, bool spawnPowerup)
+    public int initBlockRow(int tier)
     {
         _tier = tier;
-
-        int powerupBlock = spawnPowerup ? Random.Range(0, _numBlocks) : -1;
+        
+        //value is twice as big as the number of blocks, so we have a 50/50 chance for a powerup in each row
+        int powerupBlock = Random.Range(0, _numBlocks * 2);
         
         int rowPoints = 0;
         for (int i = 0; i < _numBlocks; i++)

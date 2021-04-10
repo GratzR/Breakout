@@ -16,25 +16,23 @@ public class SpawnManager : MonoBehaviour
 
     void Start()
     {
-        var tiers = new List<int> {4,3,2,2,1,1};
-
-        int powerupRow = Random.Range(0,_numBlockRows);
-
+        // var tiers = new List<int> {4,3,2,2,1,1};
+        var tiers = new List<int> {1,1,1,1,1,1};
+        
         int maxPoints = 0;
         for (int i = 0; i < _numBlockRows; i++)
         {
-            bool spawnPowerup = powerupRow == i ? true : false;
-            maxPoints += SpawnBlockRow(i, tiers[i], spawnPowerup);
+            maxPoints += SpawnBlockRow(i, tiers[i]);
         }
         
         _player.setMaxPoints(maxPoints);
     }
 
-    private int SpawnBlockRow(int numBlockRows, int tier, bool spawnPowerup)
+    private int SpawnBlockRow(int numBlockRows, int tier)
     {
         GameObject newObject = Instantiate(_blockRowPrefab, new Vector3(0f, 3.75f - numBlockRows*0.4f, 0), Quaternion.identity, this.transform);
         BlockRow blockRow = newObject.GetComponent<BlockRow>();
-        int rowPoints = blockRow.initBlockRow(tier, spawnPowerup);
+        int rowPoints = blockRow.initBlockRow(tier);
 
         return rowPoints;
     }

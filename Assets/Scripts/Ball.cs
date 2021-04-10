@@ -40,7 +40,7 @@ public class Ball : MonoBehaviour
         else if (transform.position.y < -5.2f)
         {
             Destroy(this.gameObject);
-            GameObject.FindWithTag("Player").GetComponent<Player>().LoseBall();
+            GameObject.FindWithTag("Player").GetComponent<Player>().LoseBall(1);
             //FindObjectOfType<Player>().LoseBall();
             //_uiManager.SubBall();
         }

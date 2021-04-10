@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
 
     public float _movSpeed = 0f;
 
+    private float _horizontalBoundary = 7.34f;
+
     
     [SerializeField] 
     private GameObject _ballPrefab;
@@ -40,21 +42,27 @@ public class Player : MonoBehaviour
 
     }
 
-    public void LoseBall()
+    public void LoseBall(int numBalls)
     {
-        _numBalls -= 1;
+        _numBalls -= numBalls;
         _activeBall = false;
-        _uiManager.BallCount(-1); //alternativ _numBalls geben
+        _uiManager.BallCount(-numBalls);
         if (_numBalls == 0)
         {
-            _uiManager.showEndGame(_maxPoints);
+            _uiManager.showEndGame();
             
             DestroyImmediate(_ballPrefab.gameObject, true);
             DestroyImmediate(_spawnManager.gameObject, true);
             DestroyImmediate(this.gameObject, true);
         }
-
     }
+    
+    public void addBall()
+    {
+        _numBalls += 1;
+        _uiManager.BallCount(1);
+    }
+
     void ShootBall()
     {
         if (Input.GetKeyDown(KeyCode.Space) && _numBalls>0 && !_activeBall)
@@ -73,14 +81,14 @@ public class Player : MonoBehaviour
         transform.Translate(Vector3.right*_movSpeed);
         
         // Boundries
-        if (transform.position.x > 7.34f)
+        if (transform.position.x > _horizontalBoundary)
         {
-            transform.position = new Vector3(7.34f, this.transform.position.y, 0f);
+            transform.position = new Vector3(_horizontalBoundary, this.transform.position.y, 0f);
             _movSpeed = 0f;
         }
-        else if (transform.position.x < -7.34f)
+        else if (transform.position.x < -_horizontalBoundary)
         {
-            transform.position = new Vector3(-7.34f, this.transform.position.y, 0f);
+            transform.position = new Vector3(-_horizontalBoundary, this.transform.position.y, 0f);
             _movSpeed = 0f;
         }
     }
@@ -88,17 +96,20 @@ public class Player : MonoBehaviour
     public void setMaxPoints(int maxPoints)
     {
         _maxPoints = maxPoints;
+        _uiManager.setMaxPoints(maxPoints);
     }
 
-    public void EnlargePlayer()
+    public void EnlargePlayer(float duration)
     {
         this.transform.localScale += new Vector3(2,0,0);
-        StartCoroutine(ReverseEnlarge());
+        _horizontalBoundary -= 1;
+        StartCoroutine(ReverseEnlarge(duration));
     }
 
-    IEnumerator ReverseEnlarge()
+    IEnumerator ReverseEnlarge(float duration)
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(duration);
         this.transform.localScale -= new Vector3(2, 0, 0);
+        _horizontalBoundary += 1;
     }
 }

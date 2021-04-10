@@ -127,6 +127,6 @@ MonoBehaviour:
   _tier2_mat: {fileID: 2100000, guid: 002d4b0a0867945d2b846aff7b6d1e0b, type: 2}
   _tier3_mat: {fileID: 2100000, guid: ba6e81ce6e4604252943f97bbdaf1c23, type: 2}
   _tier4_mat: {fileID: 2100000, guid: 12d1c6e1a313543f69686c55f344fa43, type: 2}
-  _albedo_powerup: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+  _albedo_powerUp: {fileID: 10906, guid: 0000000000000000f000000000000000, type: 0}
   _powerUp: {fileID: 1090233820845856267, guid: 9541868b019bc8b49be98ceada7b6df2,
     type: 3}

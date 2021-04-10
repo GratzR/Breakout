@@ -6,10 +6,13 @@ using Random = UnityEngine.Random;
 
 public class Block : MonoBehaviour
 {
+    private const int ENLARGE = 1;
+    private const int EXTRA_BALL = 2;
+    
     private int _tier = 1;
     private int _currentLives = 1;
     private int _numberPoints = 1;
-    private bool _isPowerUp;
+    private int _powerUpType = 0;
 
     [SerializeField]
     private Material _tier1_mat;
@@ -21,8 +24,8 @@ public class Block : MonoBehaviour
     private Material _tier4_mat;
     
     [SerializeField]
-    private Texture _albedo_powerup;
-
+    private Texture _albedo_powerUp;
+    
     [SerializeField] 
     private PowerUp _powerUp;
     
@@ -41,7 +44,11 @@ public class Block : MonoBehaviour
         _tier = tier;
         _currentLives = currentTier[0];
         _numberPoints = currentTier[1];
-        _isPowerUp = spawnPowerupInBlock;
+        if (spawnPowerupInBlock)
+        {
+            _powerUpType = Random.Range(1,3);
+        }
+        // _isPowerUp = true;
         
         setColorToRemainingLives(_currentLives);
 
@@ -58,9 +65,10 @@ public class Block : MonoBehaviour
 
             if (_currentLives <= 0)
             {
-                if (_isPowerUp)
+                if (_powerUpType > 0)
                 {
-                    Instantiate(_powerUp, this.transform.position, Quaternion.Euler(0,0,90), this.transform.parent.gameObject.transform);
+                    PowerUp powerUp = Instantiate(_powerUp, this.transform.position, Quaternion.Euler(0,0,90), this.transform.parent.gameObject.transform);
+                    powerUp.setPowerUpType(_powerUpType);
                 }
                 
                 GameObject.FindWithTag("UIManager").GetComponent<UIManager>().AddScore(_numberPoints);
@@ -87,9 +95,9 @@ public class Block : MonoBehaviour
                 break;
         }
 
-        if (_isPowerUp)
+        if (_powerUpType > 0)
         {
-            GetComponent<Renderer>().material.mainTexture = _albedo_powerup;
+            GetComponent<Renderer>().material.mainTexture = _albedo_powerUp;
         }
     }
 }
