@@ -4,7 +4,7 @@
 ## Get started
 
 ### Just clone the repo, build with Unity Hub and you are good to go.
-````git clone git@github.com:GratzR/Breakout.git````
+````git clone https://github.com/GratzR/Breakout.git````
 
 ## Gameplay
 
