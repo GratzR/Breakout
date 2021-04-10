@@ -16,8 +16,10 @@
     <explicitExcludes>
       <Path>.git</Path>
       <Path>.idea</Path>
+      <Path>Corona Chaos_Data</Path>
       <Path>Library</Path>
       <Path>Logs</Path>
+      <Path>MonoBleedingEdge</Path>
       <Path>Temp</Path>
       <Path>obj</Path>
     </explicitExcludes>
