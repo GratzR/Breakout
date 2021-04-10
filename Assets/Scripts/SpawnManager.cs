@@ -16,8 +16,7 @@ public class SpawnManager : MonoBehaviour
 
     void Start()
     {
-        // var tiers = new List<int> {4,3,2,2,1,1};
-        var tiers = new List<int> {1,1,1,1,1,1};
+        var tiers = new List<int> {4,3,2,2,1,1};
         
         int maxPoints = 0;
         for (int i = 0; i < _numBlockRows; i++)

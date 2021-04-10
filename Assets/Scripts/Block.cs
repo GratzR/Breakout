@@ -6,9 +6,6 @@ using Random = UnityEngine.Random;
 
 public class Block : MonoBehaviour
 {
-    private const int ENLARGE = 1;
-    private const int EXTRA_BALL = 2;
-    
     private int _tier = 1;
     private int _currentLives = 1;
     private int _numberPoints = 1;
@@ -46,9 +43,8 @@ public class Block : MonoBehaviour
         _numberPoints = currentTier[1];
         if (spawnPowerupInBlock)
         {
-            _powerUpType = Random.Range(1,3);
+            _powerUpType = Random.Range(1,5);
         }
-        // _isPowerUp = true;
         
         setColorToRemainingLives(_currentLives);
 

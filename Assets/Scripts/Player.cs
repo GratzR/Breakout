@@ -67,9 +67,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && _numBalls>0 && !_activeBall)
         {
-            //Debug.Log(message:"space bar pressed");
             Instantiate(_ballPrefab, transform.position + new Vector3(0f,0.7f,0f), Quaternion.identity);
-            //LoseBall();
             _activeBall = true;
         }
     }
@@ -99,17 +97,23 @@ public class Player : MonoBehaviour
         _uiManager.setMaxPoints(maxPoints);
     }
 
-    public void EnlargePlayer(float duration)
+    public void EnlargePlayer(float duration, float size)
     {
-        this.transform.localScale += new Vector3(2,0,0);
-        _horizontalBoundary -= 1;
-        StartCoroutine(ReverseEnlarge(duration));
+        this.transform.localScale += new Vector3(size,0,0);
+        _horizontalBoundary -= size/2;
+        StartCoroutine(ReverseEnlarge(duration, size));
     }
 
-    IEnumerator ReverseEnlarge(float duration)
+    IEnumerator ReverseEnlarge(float duration, float size)
     {
         yield return new WaitForSeconds(duration);
-        this.transform.localScale -= new Vector3(2, 0, 0);
-        _horizontalBoundary += 1;
+        this.transform.localScale -= new Vector3(size, 0, 0);
+        _horizontalBoundary += size/2;
+    }
+
+    public void multiball()
+    {
+        Instantiate(_ballPrefab, transform.position + new Vector3(0f,0.7f,0f), Quaternion.identity);
+        addBall();
     }
 }

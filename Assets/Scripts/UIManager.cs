@@ -26,6 +26,15 @@ public class UIManager : MonoBehaviour
         _scoreText.text = "Score: " + _score;
     }
 
+    private void Update()
+    {
+        if (_score == _maxPoints)
+        {
+            // GameObject.FindWithTag("Player").GetComponent<Player>().LoseBall(_ballsLeft);
+            showEndGame();
+        }
+    }
+
     public void BallCount(int _ball)
     {
         _ballsLeft += _ball;
@@ -36,12 +45,6 @@ public class UIManager : MonoBehaviour
     {
         _score += _points;
         _scoreText.text = "Score: " + _score;
-
-        if (_score == _maxPoints)
-        {
-            // GameObject.FindWithTag("Player").GetComponent<Player>().LoseBall(_ballsLeft);
-            showEndGame();
-        }
     }
 
     public void showEndGame()
@@ -50,17 +53,29 @@ public class UIManager : MonoBehaviour
         {
             _endGameText.text = "You won! \n You reached " + _score + " / " + _maxPoints + " points";
             Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
-            Ball ball = GameObject.FindWithTag("Ball").GetComponent<Ball>();
+            GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
+            GameObject[] powerUps = GameObject.FindGameObjectsWithTag("PowerUp");
+
+            foreach (GameObject ball in balls)
+            {
+                Destroy(ball.GetComponent<Ball>().gameObject);
+            }
             
-            Destroy(player);
-            Destroy(ball);
+            foreach (GameObject powerUp in powerUps)
+            {
+                Destroy(powerUp.GetComponent<PowerUp>().gameObject);
+            }
+            
+            Destroy(player.gameObject);
+            
+            _maxPoints = -1;
         }
         else
         {
             _endGameText.text = "Game over! \n You reached " + _score + " / " + _maxPoints + " points";
         }
-        Destroy(_ballText);
-        Destroy(_scoreText);
+        Destroy(_ballText.gameObject);
+        Destroy(_scoreText.gameObject);
     }
 
     public void setMaxPoints(int maxPoints)

@@ -9,6 +9,8 @@ public class PowerUp : MonoBehaviour
 
     private const int ENLARGE = 1;
     private const int EXTRA_BALL = 2;
+    private const int SHRINK = 3;
+    private const int MULTIBALL = 4;
 
     private int _type;
     // Update is called once per frame
@@ -33,11 +35,17 @@ public class PowerUp : MonoBehaviour
             switch (_type)
             {
                 case ENLARGE:
-                    other.GetComponent<Player>().EnlargePlayer(_duration);
+                    other.GetComponent<Player>().EnlargePlayer(_duration, 2f);
                     break;
                 case EXTRA_BALL:
                     other.GetComponent<Player>().addBall();
-                    break;    
+                    break; 
+                case SHRINK:
+                    other.GetComponent<Player>().EnlargePlayer(_duration, -1f);
+                    break; 
+                case MULTIBALL:
+                    other.GetComponent<Player>().multiball();
+                    break; 
             }
             Destroy(this.gameObject);
         }
